@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 #![feature(abi_x86_interrupt)] // For interrupt support later
+mod vga_buffer;
 
 use core::panic::PanicInfo;
 
@@ -24,3 +25,13 @@ pub extern "C" fn _start() -> ! {
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
+
+// in src/main.rs
+
+#[unsafe(no_mangle)]
+pub extern "C" fn _start() -> ! {
+    vga_buffer::print_something();
+
+    loop {}
+}
+
